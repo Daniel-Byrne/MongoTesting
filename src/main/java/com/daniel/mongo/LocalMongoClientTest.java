@@ -1,8 +1,5 @@
 package com.daniel.mongo;
 
-import org.bson.Document;
-import java.util.List;
-
 import com.daniel.mongo.recorder.RecordableAction;
 import com.daniel.mongo.recorder.Recorder;
 import com.mongodb.client.MongoClient;
@@ -15,11 +12,19 @@ public class LocalMongoClientTest {
         String uri = "mongodb://localhost:27017";
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDbWrapper wrapper = new MongoDbWrapper(mongoClient, "loginstatistics", "ip_based");
+            MongoDbWrapper wrapper = new MongoDbWrapper(mongoClient, "loginstatistics", "ip_based", false);
 
-            List<Document> documents = wrapper.documentsToInsert(1000000);
-            RecordableAction action = wrapper.insertMany(documents);
-            Recorder.record(action);
+//            List<Document> documents = wrapper.documentsToInsert(1000000);
+//            RecordableAction insertAction = wrapper.insertMany(documents);
+//            Recorder.record(insertAction);
+
+            RecordableAction queryAction = wrapper.queryCollection();
+
+            int count = 10;
+            for (int i = 0; i < count; i++) {
+                Recorder.record(queryAction);
+            }
+            Recorder.print();
         }
     }
 

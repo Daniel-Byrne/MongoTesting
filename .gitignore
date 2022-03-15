@@ -1,2 +1,13 @@
 target
 **/.vscode
+**/*.class
+**/*.iml
+**/.settings
+**/.classpath
+**/.project
+**/.kube
+**/.cache
+**/.vscode
+**/.ozignore
+**/*.exec
+**/Remote*.java
